@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalShare</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h1>📡 LocalShare</h1>
+      <div class="sub" id="addr">Chargement...</div>
+    </div>
+
+    <!-- -- ENVOYER ---------------------------------------------------------------- -->
+    <div class="card">
+      <div class="card-title">⬆️ Envoyer</div>
+      <div class="drop-zone" id="dropZone">
+        <input type="file" id="fileInput" multiple />
+        <div class="dz-icon">📂</div>
+        <div class="dz-label">Appuie pour choisir un fichier</div>
+        <div class="dz-hint">Depuis un ordinateur : glisse-dépose ici</div>
+      </div>
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-label" id="progressLabel">Envoi en cours...</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- -- RECEVOIR ---------------------------------------------------------------- -->
+    <div class="card">
+      <div class="card-title">⬇️ Recevoir</div>
+      <div id="fileList"><p class="empty">Aucun fichier disponible</p></div>
+      <div class="tip">
+        📁 Dossier de stockage :<br />
+        <strong id="storePath">Chargement...</strong>
+      </div>
+    </div>
+
+    <!-- -- PRESSE-PAPIER ---------------------------------------------------------------- -->
+    <div class="card">
+      <div class="card-title">📋 Presse-papier partagé</div>
+      <textarea
+        id="clipText"
+        placeholder="Écris ou colle du texte ici...
+Synchronisé automatiquement sur tous les appareils connectés."
+      ></textarea>
+      <div class="clip-actions">
+        <button class="btn btn-blue btn-sm" onclick="saveClip()">
+          💾 Envoyer
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="copyClip()">
+          📋 Copier
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="clearClip()">
+          🗑️ Vider
+        </button>
+      </div>
+      <div class="sync-status">
+        <span class="dot"></span>
+        <span id="clipStatus"
+          >Synchronisation automatique toutes les 3 secondes</span
+        >
+      </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

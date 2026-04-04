@@ -1,0 +1,10 @@
+# Configuration personnelle - copie config.py.example et adapte-le
+config.py
+ 
+# Fichiers transférés
+files/*
+!files/.gitkeep
+ 
+# Python
+__pycache__/
+*.py[cod]
