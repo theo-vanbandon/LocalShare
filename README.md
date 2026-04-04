@@ -56,7 +56,14 @@ Le terminal affiche l'adresse à ouvrir sur le téléphone :
 ╚══════════════════════════════════════════╝
 ```
 
-Sur **Windows**, tu peux aussi double-cliquer sur `LocalShare.bat` pour lancer le serveur et ouvrir le navigateur automatiquement.
+Des scripts de lancement sont aussi disponibles selon ton OS — ils vérifient que Python est installé et ouvrent le navigateur automatiquement :
+
+| OS | Script | Commande |
+|----|--------|----------|
+| Windows | `LocalShare.bat` | Double-clic |
+| Linux / macOS | `LocalShare.sh` | `chmod +x LocalShare.sh && ./LocalShare.sh` |
+
+> **Linux/macOS** : le `chmod +x` n'est nécessaire qu'une seule fois pour rendre le script exécutable.
 
 ---
 
@@ -70,7 +77,9 @@ LocalShare/
 ├── api.py               # Logique métier : gestion des fichiers et du clipboard
 ├── handler.py           # Routing HTTP - dispatch les requêtes vers api.py
 ├── utils.py             # Fonctions utilitaires (IP locale, formatage taille)
-├── LocalShare.bat       # Lanceur Windows (optionnel)
+├── LocalShare-icon.ico  # Icône de l'application
+├── LocalShare.bat       # Lanceur Windows
+├── LocalShare.sh        # Lanceur Linux/macOS
 ├── files/               # Dossier de stockage des fichiers transférés (ignoré par Git)
 └── static/
     ├── index.html       # Structure HTML de l'interface
