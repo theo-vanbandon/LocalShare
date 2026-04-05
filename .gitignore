@@ -8,3 +8,7 @@ files/*
 # Python
 __pycache__/
 *.py[cod]
+
+# Coverage
+.coverage
+htmlcov/

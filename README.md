@@ -56,7 +56,7 @@ Le terminal affiche l'adresse à ouvrir sur le téléphone :
 ╚══════════════════════════════════════════╝
 ```
 
-Des scripts de lancement sont aussi disponibles selon ton OS — ils vérifient que Python est installé et ouvrent le navigateur automatiquement :
+Des scripts de lancement sont aussi disponibles selon ton OS - ils vérifient que Python est installé et ouvrent le navigateur automatiquement :
 
 | OS | Script | Commande |
 |----|--------|----------|
@@ -81,6 +81,8 @@ LocalShare/
 ├── LocalShare.bat       # Lanceur Windows
 ├── LocalShare.sh        # Lanceur Linux/macOS
 ├── files/               # Dossier de stockage des fichiers transférés (ignoré par Git)
+├── requirements-dev.txt # Dépendances de développement
+├── tests/               # Suite de tests (voir tests/README.md)
 └── static/
     ├── index.html       # Structure HTML de l'interface
     ├── style.css        # Styles de l'interface
@@ -125,3 +127,16 @@ Tout se passe dans `config.py` (copié depuis `config.py.example`) :
 - Sur Windows, le pare-feu peut demander une autorisation lors du premier lancement : autorise Python sur les réseaux privés
 - Le presse-papier partagé est en mémoire uniquement - il est effacé à chaque redémarrage du serveur
 - `config.py` et `files/` sont dans le `.gitignore` - tes chemins personnels et fichiers transférés ne seront jamais poussés sur GitHub
+
+---
+
+## Tests
+
+Le projet dispose d'une suite de tests avec **100% de couverture** sur le code source.
+
+```bash
+pip install -r requirements-dev.txt
+python -m pytest --cov --cov-report=term-missing
+```
+
+Pour plus de détails sur les tests, les commandes disponibles et les résultats : voir [`tests/README.md`](tests/README.md).
