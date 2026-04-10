@@ -57,10 +57,10 @@ function fileIcon(name) {
 // -- Échappement HTML ----------------------------------------------------------------
 function esc(s) {
   return String(s)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
 }
 
 // -- Toast ----------------------------------------------------------------
@@ -210,7 +210,9 @@ async function syncClip() {
         document.getElementById("clipStatus").textContent = "Mis à jour à " + t;
       }
     }
-  } catch (_) {}
+  } catch (error) {
+    console.error("Erreur lors de la synchronisation du clipboard :", error);
+  }
 }
 
 function copyClip() {
@@ -221,15 +223,15 @@ function copyClip() {
   }
 
   // navigator.clipboard requiert HTTPS - indisponible sur le tel en HTTP local
-  if (navigator.clipboard && window.isSecureContext) {
+  if (navigator.clipboard && globalThis.isSecureContext) {
     navigator.clipboard.writeText(text).then(() => toast("📋 Copié !"));
   } else {
     // Fallback universel : sélection + execCommand
     const ta = document.getElementById("clipText");
     ta.select();
     ta.setSelectionRange(0, 99999); // mobile
-    document.execCommand("copy");
-    window.getSelection()?.removeAllRanges();
+    document.execCommand("copy"); // eslint-disable-line deprecation/deprecation -- fallback intentionnel, pas d'alternative sans HTTPS // NOSONAR
+    globalThis.getSelection()?.removeAllRanges();
     toast("📋 Copié !");
   }
 }

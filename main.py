@@ -1,6 +1,6 @@
 from http.server import HTTPServer
 
-from config import PORT, UPLOAD_DIR
+from config import PORT
 from handler import LocalShareHandler
 from utils import get_local_ip
 
@@ -14,7 +14,7 @@ def print_banner(local_ip: str) -> None:
     print("  ╠══════════════════════════════════════════╣")
     print(f"  ║  PC  → http://localhost:{PORT}             ║")
     print(f"  ║  Tel → http://{local_ip}:{PORT}{pad}       ║")
-    print(f"  ║  Dossier : ...LocalShare\\files           ║")
+    print("  ║  Dossier : ...LocalShare\\files           ║")
     print("  ╚══════════════════════════════════════════╝")
     print()
     print("  Ctrl+C pour arrêter\n")

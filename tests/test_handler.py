@@ -3,7 +3,6 @@ import threading
 import urllib.request
 import urllib.error
 from http.server import HTTPServer
-from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -224,7 +223,7 @@ class TestUpload:
             + content +
             b"\r\n--" + boundary + b"--\r\n"
         )
-        return body, f"multipart/form-data; boundary=testboundary123"
+        return body, "multipart/form-data; boundary=testboundary123"
 
     def test_upload_simple(self, server):
         body, content_type = self._make_multipart("upload_test.txt", b"contenu test")
