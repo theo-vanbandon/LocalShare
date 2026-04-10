@@ -182,6 +182,8 @@ async function deleteFile(name) {
 
 // -- Clipboard ----------------------------------------------------------------
 let lastClip = null;
+let isTyping = false;
+let typingTimer;
 
 async function saveClip() {
   const text = document.getElementById("clipText").value;
@@ -198,7 +200,8 @@ async function syncClip() {
   try {
     const d = await fetch("/api/clipboard").then((r) => r.json());
     const ta = document.getElementById("clipText");
-    if (d.text !== lastClip && document.activeElement !== ta) {
+    // Ne pas écraser si l'utilisateur est en train de taper activement
+    if (d.text !== lastClip && !isTyping) {
       ta.value = d.text;
       lastClip = d.text;
       if (d.text) {
@@ -248,6 +251,16 @@ async function clearClip() {
     "Synchronisation automatique toutes les 3 secondes";
   toast("Presse-papier vidé", "#6b7280");
 }
+
+// -- Détection de frappe active ----------------------------------------------------------------
+document.getElementById("clipText").addEventListener("keydown", () => {
+  isTyping = true;
+  clearTimeout(typingTimer);
+  // Considère l'utilisateur comme inactif après 2s sans frappe
+  typingTimer = setTimeout(() => {
+    isTyping = false;
+  }, 2000);
+});
 
 // -- Init ----------------------------------------------------------------
 loadInfo();
