@@ -7,6 +7,9 @@ import api
 from config import STATIC_DIR, UPLOAD_DIR
 from utils import format_size, get_local_ip
 
+from pathlib import Path
+from config import PORT
+
 # Types MIME explicites pour les fichiers statiques
 STATIC_MIME = {
     ".html": "text/html; charset=utf-8",
@@ -53,6 +56,8 @@ class LocalShareHandler(BaseHTTPRequestHandler):
         match path:
             case "/" | "/index.html":
                 self._serve_static("index.html")
+            case "/favicon.ico":
+                self._serve_favicon()
             case "/api/info":
                 self._route_info()
             case "/api/files":
@@ -94,7 +99,7 @@ class LocalShareHandler(BaseHTTPRequestHandler):
     # -- Handlers ----------------------------------------------------------------
 
     def _serve_static(self, filename: str) -> None:
-        """Sert un fichier depuis le dossier static/ avec le bon Content-Type."""
+        """Sert un fichier depuis le dossier static/ avec le bon Content-Type"""
         filepath = STATIC_DIR / filename
         if not filepath.exists() or not filepath.is_file():
             self.not_found()
@@ -108,9 +113,21 @@ class LocalShareHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _serve_favicon(self) -> None:
+        """Sert l'icône de l'application depuis la racine du projet"""
+        filepath = Path(__file__).parent / "LocalShare-icon.ico"
+        if not filepath.exists():
+            self.not_found()
+            return
+        body = filepath.read_bytes()
+        self.send_response(200)
+        self.send_header("Content-Type", "image/x-icon")
+        self.send_header("Content-Length", len(body))
+        self.end_headers()
+        self.wfile.write(body)
+
     def _route_info(self) -> None:
         """Retourne l'IP locale, le port et le dossier de stockage"""
-        from config import PORT
         self.send_json({
             "ip":   get_local_ip(),
             "port": PORT,
