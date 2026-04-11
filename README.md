@@ -22,7 +22,22 @@ Aucune installation sur le téléphone, aucune connexion internet - tout passe e
 
 ---
 
-## Installation
+## Installation et lancement
+
+### ⚡ Automatique - Windows (recommandé)
+
+1. Clone ou télécharge le projet
+2. Double-clique sur `install.bat`
+3. Choisis une configuration :
+   - **D - Par défaut** : PORT 5000, fichiers stockés dans `Downloads\LocalShare\files`
+   - **M - Manuelle** : saisis ton propre PORT et dossier de stockage (les valeurs conseillées sont affichées)
+4. Le raccourci est créé sur le bureau - double-clique dessus pour lancer LocalShare
+
+> Si tu relances `install.bat` plus tard, la configuration et le raccourci sont remplacés.
+
+---
+
+### 🛠️ Manuel - Tous OS
 
 1. Clone ou télécharge le projet
 2. Copie `config.py.example` en `config.py` :
@@ -34,12 +49,9 @@ cp config.py.example config.py
 PORT = 5000
 UPLOAD_DIR = Path(r"C:\chemin\vers\ton\dossier\files")
 ```
-4. Le dossier `files/` est créé automatiquement au premier lancement
+4. `UPLOAD_DIR` est le dossier où seront stockés les fichiers partagés - le dossier est créé automatiquement au premier lancement s'il n'existe pas
 
----
-
-## Lancement
-
+5. Lance le serveur :
 ```bash
 python main.py
 ```
@@ -77,11 +89,12 @@ LocalShare/
 ├── api.py               # Logique métier : gestion des fichiers et du clipboard
 ├── handler.py           # Routing HTTP - dispatch les requêtes vers api.py
 ├── utils.py             # Fonctions utilitaires (IP locale, formatage taille)
-├── LocalShare-icon.ico  # Icône de l'application
+├── install.bat          # Installeur Windows - config + raccourci bureau
 ├── LocalShare.bat       # Lanceur Windows
 ├── LocalShare.sh        # Lanceur Linux/macOS
-├── files/               # Dossier de stockage des fichiers transférés (ignoré par Git)
+├── LocalShare-icon.ico  # Icône de l'application
 ├── requirements-dev.txt # Dépendances de développement
+├── files/               # Dossier de stockage des fichiers transférés (ignoré par Git)
 ├── tests/               # Suite de tests (voir tests/README.md)
 └── static/
     ├── index.html       # Structure HTML de l'interface
@@ -93,12 +106,12 @@ LocalShare/
 
 ## Configuration
 
-Tout se passe dans `config.py` (copié depuis `config.py.example`) :
+Tout se passe dans `config.py` (généré par `install.bat` ou copié depuis `config.py.example`) :
 
 | Variable     | Description                                     | Défaut                             |
 |--------------|-------------------------------------------------|------------------------------------|
 | `PORT`       | Port d'écoute du serveur                        | `5000`                             |
-| `UPLOAD_DIR` | Dossier où sont stockés les fichiers transférés | `...LocalShare\files`              |
+| `UPLOAD_DIR` | Dossier où sont stockés les fichiers transférés | `Downloads\LocalShare\files`       |
 | `STATIC_DIR` | Dossier contenant les fichiers de l'interface   | `static/` (relatif à `config.py`) |
 
 ---
@@ -121,15 +134,6 @@ Tout se passe dans `config.py` (copié depuis `config.py.example`) :
 
 ---
 
-## Notes
-
-- Le serveur est accessible uniquement sur le réseau local - aucune donnée ne transite par internet
-- Sur Windows, le pare-feu peut demander une autorisation lors du premier lancement : autorise Python sur les réseaux privés
-- Le presse-papier partagé est en mémoire uniquement - il est effacé à chaque redémarrage du serveur
-- `config.py` et `files/` sont dans le `.gitignore` - tes chemins personnels et fichiers transférés ne seront jamais poussés sur GitHub
-
----
-
 ## Tests
 
 Le projet dispose d'une suite de tests avec **100% de couverture** sur le code source.
@@ -140,3 +144,12 @@ python -m pytest --cov --cov-report=term-missing
 ```
 
 Pour plus de détails sur les tests, les commandes disponibles et les résultats : voir [`tests/README.md`](tests/README.md).
+
+---
+
+## Notes
+
+- Le serveur est accessible uniquement sur le réseau local - aucune donnée ne transite par internet
+- Sur Windows, le pare-feu peut demander une autorisation lors du premier lancement : autorise Python sur les réseaux privés
+- Le presse-papier partagé est en mémoire uniquement - il est effacé à chaque redémarrage du serveur
+- `config.py` et `files/` sont dans le `.gitignore` - tes chemins personnels et fichiers transférés ne seront jamais poussés sur GitHub

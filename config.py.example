@@ -1,12 +1,12 @@
 from pathlib import Path
 
-# ── Serveur ────────────────────────────────────────────────────────────────────
+# -- Serveur ------------------------------------------------------------------
 PORT = 5000
 
-# ── Stockage ───────────────────────────────────────────────────────────────────
+# -- Stockage -----------------------------------------------------------------
 # Remplace ce chemin par le dossier où tu veux stocker les fichiers transférés
 UPLOAD_DIR = Path(r"C:\chemin\vers\ton\dossier\files")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
-# ── Interface ──────────────────────────────────────────────────────────────────
+# -- Interface ----------------------------------------------------------------
 STATIC_DIR = Path(__file__).parent / "static"
