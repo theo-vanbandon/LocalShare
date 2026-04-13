@@ -49,26 +49,18 @@
 Synchronisé automatiquement sur tous les appareils connectés."
       ></textarea>
       <div class="clip-actions">
-        <button class="btn btn-blue btn-sm" onclick="saveClip()">
-          💾 Envoyer
-        </button>
-        <button class="btn btn-ghost btn-sm" onclick="copyClip()">
-          📋 Copier
-        </button>
-        <button class="btn btn-ghost btn-sm" onclick="clearClip()">
-          🗑️ Vider
-        </button>
+        <button id="btnSaveClip" class="btn btn-blue btn-sm">💾 Envoyer</button>
+        <button id="btnCopyClip" class="btn btn-ghost btn-sm">📋 Copier</button>
+        <button id="btnClearClip" class="btn btn-ghost btn-sm">🗑️ Vider</button>
       </div>
       <div class="sync-status">
         <span class="dot"></span>
-        <span id="clipStatus"
-          >Synchronisation automatique toutes les 3 secondes</span
-        >
+        <span id="clipStatus">Synchronisation automatique toutes les 3 secondes</span>
       </div>
     </div>
 
     <div id="toast"></div>
 
-    <script src="/static/app.js"></script>
+    <script type="module" src="/static/js/main.js"></script>
   </body>
 </html>

@@ -1,14 +1,12 @@
 import json
 import mimetypes
 from http.server import BaseHTTPRequestHandler
+from pathlib import Path
 from urllib.parse import urlparse, unquote
 
 import api
-from config import STATIC_DIR, UPLOAD_DIR
+from config import STATIC_DIR, UPLOAD_DIR, PORT
 from utils import format_size, get_local_ip
-
-from pathlib import Path
-from config import PORT
 
 # Types MIME explicites pour les fichiers statiques
 STATIC_MIME = {
