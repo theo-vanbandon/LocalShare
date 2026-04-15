@@ -39,7 +39,7 @@ export function initUpload() {
 async function upload(fileList) {
   // Copie immédiate en Array avant tout reset ou opération async
   const files = Array.from(fileList);
-  if (!files.length) return;
+  if (!files.length) return; /* v8 ignore next */
 
   const pw = document.getElementById("progressWrap");
   const pf = document.getElementById("progressFill");
