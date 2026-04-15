@@ -135,7 +135,7 @@ describe("initUpload()", () => {
   });
 
   it("affiche le toast au pluriel pour plusieurs fichiers", async () => {
-    const xhrMock = mockXhr();
+    mockXhr();
     fetch.mockResolvedValue({ json: () => Promise.resolve([]) });
     initUpload();
 

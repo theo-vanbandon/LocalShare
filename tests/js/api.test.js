@@ -24,7 +24,7 @@ function mockFetch(data) {
 
 describe("fetchInfo()", () => {
   it("appelle /api/info et retourne les données", async () => {
-    mockFetch({ ip: "192.168.1.1", port: 5000, dir: "C:\\files" });
+    mockFetch({ ip: "192.168.1.1", port: 5000, dir: String.raw`C:\files` });
     const result = await fetchInfo();
     expect(fetch).toHaveBeenCalledWith("/api/info");
     expect(result.ip).toBe("192.168.1.1");

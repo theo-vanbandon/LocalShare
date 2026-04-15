@@ -171,6 +171,7 @@ describe("initClipboard()", () => {
 
     globalThis.getSelection = () => ({ removeAllRanges: vi.fn() });
 
+    // eslint-disable-next-line deprecation/deprecation
     document.execCommand = vi.fn();
 
     document.getElementById("btnCopyClip").click();
