@@ -93,13 +93,21 @@ LocalShare/
 ├── LocalShare.bat       # Lanceur Windows
 ├── LocalShare.sh        # Lanceur Linux/macOS
 ├── LocalShare-icon.ico  # Icône de l'application
-├── requirements-dev.txt # Dépendances de développement
+├── package.json         # Dépendances JS de développement (Vitest)
+├── vitest.config.js     # Configuration des tests JS
+├── requirements-dev.txt # Dépendances Python de développement (pytest)
 ├── files/               # Dossier de stockage des fichiers transférés (ignoré par Git)
 ├── tests/               # Suite de tests (voir tests/README.md)
 └── static/
     ├── index.html       # Structure HTML de l'interface
     ├── style.css        # Styles de l'interface
-    └── app.js           # Logique front-end (upload, clipboard, rafraîchissement)
+    └── js/
+        ├── main.js      # Point d'entrée JS - init et intervalles
+        ├── api.js       # Requêtes fetch vers le serveur
+        ├── ui.js        # Toast, échappement HTML, icônes fichiers
+        ├── upload.js    # Dropzone et barre de progression
+        ├── files.js     # Liste des fichiers et suppression
+        └── clipboard.js # Sync, envoi, copie et vidage du presse-papier
 ```
 
 ---
@@ -108,11 +116,11 @@ LocalShare/
 
 Tout se passe dans `config.py` (généré par `install.bat` ou copié depuis `config.py.example`) :
 
-| Variable     | Description                                     | Défaut                             |
-|--------------|-------------------------------------------------|------------------------------------|
-| `PORT`       | Port d'écoute du serveur                        | `5000`                             |
-| `UPLOAD_DIR` | Dossier où sont stockés les fichiers transférés | `Downloads\LocalShare\files`       |
-| `STATIC_DIR` | Dossier contenant les fichiers de l'interface   | `static/` (relatif à `config.py`) |
+| Variable | Description | Défaut |
+|----------|-------------|--------|
+| `PORT` | Port d'écoute du serveur | `5000` |
+| `UPLOAD_DIR` | Dossier où sont stockés les fichiers transférés | `Downloads\LocalShare\files` |
+| `STATIC_DIR` | Dossier contenant les fichiers de l'interface | `static/` (relatif à `config.py`) |
 
 ---
 
@@ -136,11 +144,16 @@ Tout se passe dans `config.py` (généré par `install.bat` ou copié depuis `co
 
 ## Tests
 
-Le projet dispose d'une suite de tests avec **100% de couverture** sur le code source.
+Le projet dispose d'une suite de tests avec **100% de couverture** sur le code source, côté Python et JavaScript.
 
 ```bash
+# Tests Python
 pip install -r requirements-dev.txt
 python -m pytest --cov --cov-report=term-missing
+
+# Tests JavaScript
+npm install
+npm run test:coverage
 ```
 
 Pour plus de détails sur les tests, les commandes disponibles et les résultats : voir [`tests/README.md`](tests/README.md).
